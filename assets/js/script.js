@@ -57,11 +57,26 @@ function addTask(){
     // se deja el valor en blanco -> ver si es mejor esto o hacer un refresh()
     document.getElementById("input-name").value = "";
     console.log(todoArray)
+    // aca se debe llamar al countTotalTask()
+    // aca se debe llamar al countDoneTask()
+    // aca se debe llamar al refresh de la pagina (ver si es automatico o se debe triggerear)
+
+}
+
+
+// Se muestran los elementos
+function showTaskItems(){
+    let list = document.getElementById("task-list-items");
+    todoArray.forEach((el) => {
+        let checkBox = el.status ? `<input type="checkbox" checked>` : `<input type="checkbox" value="1">`;
+        list.innerHTML += `<li>${el.id} ${el.name} ${checkBox}</li>`
+    })
 }
 
 
 // Llamado de funciones, hay que llamar al agregar o quitar tareas
 countTotalTask();
 countDoneTask();
+showTaskItems();
 
 console.log(todoArray)

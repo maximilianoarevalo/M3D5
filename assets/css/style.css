@@ -52,4 +52,8 @@
     width: 50%;
 }
 
+.task-content .right-side .show-task-list{ 
+    list-style-type: none;
+}
+
 
