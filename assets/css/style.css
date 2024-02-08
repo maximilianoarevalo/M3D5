@@ -1,0 +1,55 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+.title{
+    font-size: 40px;
+    margin: 20px;
+    font-weight: 500;
+}
+
+.task{
+    margin: 20px;
+    background-color: red;
+}
+
+.task-title{
+    margin: 10px;
+    background-color: yellow;
+}
+
+.task-input{
+    display: flex;
+    margin: 10px;
+    background-color: orange;
+    /* justify-content: space-evenly; */
+}
+
+.task-input .input input{
+    width: 50vh;
+}
+
+.task-input button{
+    background-color: green;
+    color: white;
+    border-radius: 5px;
+}
+
+.task-content{
+    display: flex;
+    /* justify-content: space-evenly; */
+}
+
+.task-content .left-side{
+    background-color: antiquewhite;
+    width: 50%;
+}
+
+.task-content .right-side{
+    background-color: aqua;
+    width: 50%;
+}
+
+
