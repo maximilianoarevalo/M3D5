@@ -2,17 +2,17 @@
 
 let todoArray = [
     {
-        id: '16',
+        id: '1',
         name: 'Hacer mercado',
         status: true
     },
     {
-        id: '60',
+        id: '2',
         name: 'Estudiar para la prueba',
         status: false
     },
     {
-        id: '24',
+        id: '3',
         name: 'Sacar a pasear a Tobby',
         status: false
     }
@@ -37,7 +37,31 @@ function countDoneTask(){
     item.innerHTML = `<div id="task-done" class="done">Realizadas: <b>${doneCounter}<b></div>`;
 }
 
+// Agregar tarea
+function addTask(){
+    // Se obtiene el maximo id actual
+    let actualId = -1; // TODO: separar como funcion **
+    todoArray.forEach((el) => {
+        if(parseInt(el.id) > actualId){
+            actualId = parseInt(el.id) + 1;
+        }
+    }
+    )
+    // Se obtiene el nombre de la tarea
+    let taskName = document.getElementById("input-name").value;
+    todoArray.push({
+        id: actualId,
+        name: taskName,
+        status: false
+    })
+    // se deja el valor en blanco -> ver si es mejor esto o hacer un refresh()
+    document.getElementById("input-name").value = "";
+    console.log(todoArray)
+}
+
 
 // Llamado de funciones, hay que llamar al agregar o quitar tareas
 countTotalTask();
 countDoneTask();
+
+console.log(todoArray)
