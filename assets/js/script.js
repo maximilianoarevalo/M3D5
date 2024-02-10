@@ -76,15 +76,22 @@ function getTaskId(checkbox, taskId) {
       todoArray.map((el) => {
         if (el.id == taskId) {
           el.status = true;
-          document.getElementById(taskId).style.textDecoration = "line-through";
+
+          // Se tachan las tareas realizadas
+          var trIdAndName = document.getElementById(taskId);
+          trIdAndName.cells[0].style.textDecoration = "line-through";
+          trIdAndName.cells[1].style.textDecoration = "line-through";
         }
       });
     } else {
       todoArray.map((el) => {
         if (el.id == taskId) {
           el.status = false;
-          document.getElementById(taskId).style.textDecoration = "none";
-
+          
+          // Se tachan las tareas realizadas
+          var trIdAndName = document.getElementById(taskId);
+          trIdAndName.cells[0].style.textDecoration = "none";
+          trIdAndName.cells[1].style.textDecoration = "none";
         }
       });
     }
@@ -107,12 +114,12 @@ function showTaskItems(){
     let list = document.getElementById("task-list-items");
     list.innerHTML = "";
     todoArray.forEach((el) => {
-        // let textDecoration = el.status ? `<li style="text-decoration:line-through;" id="${el.id}">` : `<li id="${el.id}">`;
+        // let textDecoration = el.status ? `<tr style="text-decoration:line-through;" id="${el.id}">` : `<tr id="${el.id}">`;
         // let checkBox = el.status ? `<input type="checkbox" checked onclick="getTaskId(this, ${el.id})">` : `<input type="checkbox" onclick="getTaskId(this, ${el.id})">`;
-        // list.innerHTML += `${textDecoration} ${el.id} ${el.name} ${checkBox} <button onclick="deleteTask(${el.id})">Eliminar</button></li>`
-        let textDecoration = el.status ? `<tr style="text-decoration:line-through;" id="${el.id}">` : `<tr id="${el.id}">`;
+        // list.innerHTML += `${textDecoration} <td>${el.id}</td> <td>${el.name}</td> <td>${checkBox} <button style="margin-left: 90px;"onclick="deleteTask(${el.id})">Eliminar</button></td></tr>`
+        let doneTask = el.status ? `style="text-decoration: line-through;"` : `style="text-decoration: none;"`;
         let checkBox = el.status ? `<input type="checkbox" checked onclick="getTaskId(this, ${el.id})">` : `<input type="checkbox" onclick="getTaskId(this, ${el.id})">`;
-        list.innerHTML += `${textDecoration} <td>${el.id}</td> <td>${el.name}</td> <td>${checkBox} <button style="margin-left: 90px;"onclick="deleteTask(${el.id})">Eliminar</button></td></tr>`
+        list.innerHTML += `<tr id="${el.id}"> <td ${doneTask}>${el.id}</td> <td ${doneTask}>${el.name}</td> <td>${checkBox} <button style="margin-left: 90px;"onclick="deleteTask(${el.id})">Eliminar</button></td></tr>`
       })
     countDoneTask();
     countTotalTask();
