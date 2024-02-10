@@ -61,7 +61,6 @@ function addTask(){
     })
     // se deja el valor en blanco -> ver si es mejor esto o hacer un refresh()
     document.getElementById("input-name").value = "";
-    console.log(todoArray)
     //aca se debe llamar al countTotalTask()
     // aca se debe llamar al countDoneTask()
     // aca se debe llamar al refresh de la pagina (ver si es automatico o se debe triggerear)
@@ -93,14 +92,24 @@ function getTaskId(checkbox, taskId) {
     countTotalTask();
   }
 
+// Funcion para eliminar tareas
+function deleteTask(taskId){
+  todoArray = todoArray.filter(el => {
+    return el.id != taskId;
+  })
+  countDoneTask();
+  countTotalTask();
+  showTaskItems();
+}
+
 // Se muestran los elementos
 function showTaskItems(){
     let list = document.getElementById("task-list-items");
     list.innerHTML = "";
     todoArray.forEach((el) => {
         let textDecoration = el.status ? `<li style="text-decoration:line-through;" id="${el.id}">` : `<li id="${el.id}">`;
-        let checkBox = el.status ? `<input type="checkbox" checked onclick="getTaskId(this, ${el.id})">` : `<input type="checkbox" value="1" onclick="getTaskId(this, ${el.id})">`;
-        list.innerHTML += `${textDecoration} ${el.id} ${el.name} ${checkBox}</li>`
+        let checkBox = el.status ? `<input type="checkbox" checked onclick="getTaskId(this, ${el.id})">` : `<input type="checkbox" onclick="getTaskId(this, ${el.id})">`;
+        list.innerHTML += `${textDecoration} ${el.id} ${el.name} ${checkBox} <button onclick="deleteTask(${el.id})">Eliminar</button></li>`
     })
     countDoneTask();
     countTotalTask();
@@ -112,4 +121,3 @@ countTotalTask();
 countDoneTask();
 showTaskItems();
 
-console.log(todoArray)
