@@ -52,11 +52,8 @@
     border: none;
 }
 
-
-
 .task-content{
     display: flex;
-    /* justify-content: space-evenly; */
 }
 
 .task-content .left-side{
@@ -71,32 +68,8 @@
     list-style-type: none;
 }
 
-.task-content .task-list{
-    display: flex;
-    flex-direction: column;
-    width: auto;
+.task-list {
+    border-spacing: 10px; /* Ajusta el espacio de separación entre las columnas */
+    text-align: left;
+    width: 100%;
 }
-
-.task-content .task-list .header{
-    font-weight: 600;
-}
-
-#task-list-items li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px;
-}
-
-/* #task-list-items input {
-    margin-right: 5px; 
-} */
-
-/*#task-list-items button {
-    background-color: red;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-*/

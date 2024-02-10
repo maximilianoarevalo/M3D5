@@ -107,10 +107,13 @@ function showTaskItems(){
     let list = document.getElementById("task-list-items");
     list.innerHTML = "";
     todoArray.forEach((el) => {
-        let textDecoration = el.status ? `<li style="text-decoration:line-through;" id="${el.id}">` : `<li id="${el.id}">`;
+        // let textDecoration = el.status ? `<li style="text-decoration:line-through;" id="${el.id}">` : `<li id="${el.id}">`;
+        // let checkBox = el.status ? `<input type="checkbox" checked onclick="getTaskId(this, ${el.id})">` : `<input type="checkbox" onclick="getTaskId(this, ${el.id})">`;
+        // list.innerHTML += `${textDecoration} ${el.id} ${el.name} ${checkBox} <button onclick="deleteTask(${el.id})">Eliminar</button></li>`
+        let textDecoration = el.status ? `<tr style="text-decoration:line-through;" id="${el.id}">` : `<tr id="${el.id}">`;
         let checkBox = el.status ? `<input type="checkbox" checked onclick="getTaskId(this, ${el.id})">` : `<input type="checkbox" onclick="getTaskId(this, ${el.id})">`;
-        list.innerHTML += `${textDecoration} ${el.id} ${el.name} ${checkBox} <button onclick="deleteTask(${el.id})">Eliminar</button></li>`
-    })
+        list.innerHTML += `${textDecoration} <td>${el.id}</td> <td>${el.name}</td> <td>${checkBox} <button style="margin-left: 90px;"onclick="deleteTask(${el.id})">Eliminar</button></td></tr>`
+      })
     countDoneTask();
     countTotalTask();
 }
