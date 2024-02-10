@@ -15,9 +15,12 @@
                 <div class="task-title">Nueva tarea</div>
                 <div class="task-input">
                     <div class="input">
-                        <input id="input-name"type="none">
+                        <input id="input-name" type="text">
                     </div>
-                    <button onclick="addTask()">Agregar</button>
+                    <div class="button">
+                        <button onclick="addTask()">Agregar</button>
+                    </div>
+                    
                 </div>
             </div>
             <div class="task-content">
@@ -27,7 +30,10 @@
                 </div>
                 <div class="right-side">
                     <div class="task-list">
-                        <div class="header">ID Tarea</div>
+                        <div class="header">
+                            <span>ID</span>
+                            <span>Tarea</span>
+                        </div>
                         <ul id="task-list-items" class="show-task-list">
                         </ul>
                     </div>
