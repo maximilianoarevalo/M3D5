@@ -1,7 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500&family=Manrope:wght@300;500;700&family=Roboto:wght@400;500&display=swap');
+
 *{
     padding: 0px;
     margin: 0px;
     box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
 }
 
 .title{
@@ -12,29 +15,32 @@
 
 .task{
     margin: 20px;
-    background-color: red;
 }
 
 .task-title{
-    margin: 10px;
-    background-color: yellow;
+    margin-bottom: 15px;
+    font-size: 20px;
 }
 
 .task-input{
     display: flex;
-    margin: 10px;
-    background-color: orange;
-    /* justify-content: space-evenly; */
+    margin-bottom: 15px;
+    width: 100%;
+    /* justify-content: space-between; */
 }
 
 .task-input .input input{
-    width: 50vh;
+    width: 120vh;
+    height: 30px;
+    margin-right: 10px;
 }
 
 .task-input button{
-    background-color: green;
+    width: 4%;
     color: white;
     border-radius: 5px;
+    background-color: green;
+    border: none;
 }
 
 .task-content{
@@ -43,12 +49,10 @@
 }
 
 .task-content .left-side{
-    background-color: antiquewhite;
     width: 50%;
 }
 
 .task-content .right-side{
-    background-color: aqua;
     width: 50%;
 }
 
