@@ -2,17 +2,17 @@
 
 let todoArray = [
     {
-        id: '1',
+        id: 1,
         name: 'Hacer mercado',
         status: true
     },
     {
-        id: '2',
+        id: 2,
         name: 'Estudiar para la prueba',
         status: false
     },
     {
-        id: '3',
+        id: 3,
         name: 'Sacar a pasear a Tobby',
         status: false
     }
@@ -39,16 +39,21 @@ function countDoneTask(){
 
 // Agregar tarea
 function addTask(){
-    // Se obtiene el maximo id actual
-    let actualId = -1; // TODO: separar como funcion **
-    todoArray.forEach((el) => {
-        if(parseInt(el.id) > actualId){
-            actualId = parseInt(el.id) + 1;
-        }
-    }
-    )
     // Se obtiene el nombre de la tarea
     let taskName = document.getElementById("input-name").value;
+
+    // Si viene nulo el nombre de la tarea
+    if(taskName === "" || taskName === null){
+        alert("La tarea debe tener nombre.");
+        return;
+    }
+
+    // Se obtiene el maximo id actual
+    // Se ordena el array de manera ascendente por id y se obtiene el siguiente id a agregar
+    todoArray.sort((a, b) => a.id - b.id);
+    let actualId = todoArray.length > 0 ? todoArray[todoArray.length - 1].id + 1 : 1;
+
+    // Se agrega la tarea
     todoArray.push({
         id: actualId,
         name: taskName,
@@ -57,20 +62,48 @@ function addTask(){
     // se deja el valor en blanco -> ver si es mejor esto o hacer un refresh()
     document.getElementById("input-name").value = "";
     console.log(todoArray)
-    // aca se debe llamar al countTotalTask()
+    //aca se debe llamar al countTotalTask()
     // aca se debe llamar al countDoneTask()
     // aca se debe llamar al refresh de la pagina (ver si es automatico o se debe triggerear)
-
+    // countDoneTask();
+    countTotalTask(); //solo se llama el total, ya que las tareas se inicializan en false, no es necesario actualizar el done al crear una nueva
+    showTaskItems();
 }
 
+// Funcion para obtener id de checkbox clickeado asociado a tarea
+function getTaskId(checkbox, taskId) {
+    // Agregar logica para tachas tareas hechas y destachar tareas sin terminar
+    if (checkbox.checked) {
+      todoArray.map((el) => {
+        if (el.id == taskId) {
+          el.status = true;
+          document.getElementById(taskId).style.textDecoration = "line-through";
+        }
+      });
+    } else {
+      todoArray.map((el) => {
+        if (el.id == taskId) {
+          el.status = false;
+          document.getElementById(taskId).style.textDecoration = "none";
+
+        }
+      });
+    }
+    countDoneTask();
+    countTotalTask();
+  }
 
 // Se muestran los elementos
 function showTaskItems(){
     let list = document.getElementById("task-list-items");
+    list.innerHTML = "";
     todoArray.forEach((el) => {
-        let checkBox = el.status ? `<input type="checkbox" checked>` : `<input type="checkbox" value="1">`;
-        list.innerHTML += `<li>${el.id} ${el.name} ${checkBox}</li>`
+        let textDecoration = el.status ? `<li style="text-decoration:line-through;" id="${el.id}">` : `<li id="${el.id}">`;
+        let checkBox = el.status ? `<input type="checkbox" checked onclick="getTaskId(this, ${el.id})">` : `<input type="checkbox" value="1" onclick="getTaskId(this, ${el.id})">`;
+        list.innerHTML += `${textDecoration} ${el.id} ${el.name} ${checkBox}</li>`
     })
+    countDoneTask();
+    countTotalTask();
 }
 
 
