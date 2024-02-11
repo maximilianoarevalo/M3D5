@@ -1,5 +1,12 @@
-// Arreglo inicial
+// Consideraciones de requerimientos: 
+// 1 -> se agregan tareas al agregar el nombre y presionar el boton (se valida que la tarea tenga nombre)
+// 2 -> al presionar boton borrar se elimina la tarea correspondiente
+// 3 -> se cuenta el total de tareas al agregar o quitar tareas
+// 4 -> al seleccionar la tarea como completada (clickeando el checkbox) se considera como hecha y su estilo cambia a texto tachado
+// 5 -> se cuenta el total de tareas realizadas de manera dinamica
+// 6 -> se define arreglo con 3 tareas iniciales
 
+// Se define arreglo inicial de tareas
 let todoArray = [
     {
         id: 1,
@@ -37,7 +44,7 @@ function countDoneTask(){
     item.innerHTML = `<div id="task-done" class="done">Realizadas: <b>${doneCounter}<b></div>`;
 }
 
-// Agregar tarea
+// Funcion que agrega tarea
 function addTask(){
     // Se obtiene el nombre de la tarea
     let taskName = document.getElementById("input-name").value;
@@ -59,42 +66,45 @@ function addTask(){
         name: taskName,
         status: false
     })
-    // se deja el valor en blanco -> ver si es mejor esto o hacer un refresh()
+
+    // Se setea el valor del input en blanco nuevamente
     document.getElementById("input-name").value = "";
-    //aca se debe llamar al countTotalTask()
-    // aca se debe llamar al countDoneTask()
-    // aca se debe llamar al refresh de la pagina (ver si es automatico o se debe triggerear)
-    // countDoneTask();
-    countTotalTask(); //solo se llama el total, ya que las tareas se inicializan en false, no es necesario actualizar el done al crear una nueva
+
+    // Se actualizan contadores
+    //solo se llama el total, ya que las tareas se inicializan en false, no es necesario actualizar el done al crear una nueva
+    countTotalTask(); 
     showTaskItems();
 }
 
 // Funcion para obtener id de checkbox clickeado asociado a tarea
 function getTaskId(checkbox, taskId) {
-    // Agregar logica para tachas tareas hechas y destachar tareas sin terminar
+    // Si la tarea esta hecha:
     if (checkbox.checked) {
       todoArray.map((el) => {
         if (el.id == taskId) {
           el.status = true;
 
-          // Se tachan las tareas realizadas
+          // Se tachan las tareas realizadas y se agrega estilo
           var trIdAndName = document.getElementById(taskId);
           trIdAndName.cells[0].style.textDecoration = "line-through";
           trIdAndName.cells[1].style.textDecoration = "line-through";
         }
       });
     } else {
+      // Si la tarea no esta hecha:
       todoArray.map((el) => {
         if (el.id == taskId) {
           el.status = false;
           
-          // Se tachan las tareas realizadas
+          // Se quita el estilo de tachado, ya que la tarea no estaria hecha
           var trIdAndName = document.getElementById(taskId);
           trIdAndName.cells[0].style.textDecoration = "none";
           trIdAndName.cells[1].style.textDecoration = "none";
         }
       });
     }
+
+    // Se actualizan contadores
     countDoneTask();
     countTotalTask();
   }
@@ -104,29 +114,27 @@ function deleteTask(taskId){
   todoArray = todoArray.filter(el => {
     return el.id != taskId;
   })
+  // Se actualizan contadores
   countDoneTask();
   countTotalTask();
   showTaskItems();
 }
 
-// Se muestran los elementos
+// Se muestran las tareas del arreglo
 function showTaskItems(){
     let list = document.getElementById("task-list-items");
     list.innerHTML = "";
     todoArray.forEach((el) => {
-        // let textDecoration = el.status ? `<tr style="text-decoration:line-through;" id="${el.id}">` : `<tr id="${el.id}">`;
-        // let checkBox = el.status ? `<input type="checkbox" checked onclick="getTaskId(this, ${el.id})">` : `<input type="checkbox" onclick="getTaskId(this, ${el.id})">`;
-        // list.innerHTML += `${textDecoration} <td>${el.id}</td> <td>${el.name}</td> <td>${checkBox} <button style="margin-left: 90px;"onclick="deleteTask(${el.id})">Eliminar</button></td></tr>`
         let doneTask = el.status ? `style="text-decoration: line-through;"` : `style="text-decoration: none;"`;
         let checkBox = el.status ? `<input type="checkbox" checked onclick="getTaskId(this, ${el.id})">` : `<input type="checkbox" onclick="getTaskId(this, ${el.id})">`;
         list.innerHTML += `<tr id="${el.id}"> <td ${doneTask}>${el.id}</td> <td ${doneTask}>${el.name}</td> <td>${checkBox} <button style="margin-left: 90px;"onclick="deleteTask(${el.id})">Eliminar</button></td></tr>`
       })
+    // Se actualizan contadores
     countDoneTask();
     countTotalTask();
 }
 
-
-// Llamado de funciones, hay que llamar al agregar o quitar tareas
+// Llamado inicial de funciones:
 countTotalTask();
 countDoneTask();
 showTaskItems();
